@@ -4,11 +4,13 @@ import { Outlet } from "react-router";
 
 const Root = () => {
     return (
-        <div>
+        <>
             <Header></Header>
-            <Outlet></Outlet>
+            <main>
+                <Outlet></Outlet>
+            </main>
             <Footer></Footer>
-        </div>
+        </>
     );
 };
 

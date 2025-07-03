@@ -10,3 +10,9 @@ export interface IBook {
     createdAt?: Date;
     updatedAt?: Date;
 }
+
+export interface IBorrow {
+    bookID: string;
+    quantity: number;
+    dueDate: Date,
+}

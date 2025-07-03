@@ -7,8 +7,13 @@ import useAxios from "@/hooks/useAxios";
 import type { IBook } from "types";
 import Swal from 'sweetalert2';
 import { NavLink } from "react-router";
+
+interface IBookProp{
+  book: IBook;
+  refetch: () => void
+}
     
-const SingleBook = ({ book }: {book: IBook}) => {
+const SingleBook = ({ book, refetch }: IBookProp) => {
     const { _id, title, author, genre, isbn, copies, available } = book || {}
     const axiosPublic = useAxios();
 
@@ -27,6 +32,7 @@ const SingleBook = ({ book }: {book: IBook}) => {
             if (result.isConfirmed) {
               axiosPublic.delete(`/books/delete-book/${_id}`)
                 .then(res => {
+                  refetch();
                   if (res) {
                     Swal.fire({
                       title: "Deleted!",

@@ -20,18 +20,17 @@ const EditBook = () => {
     });
 
     
-
-    
     const onSubmit: SubmitHandler<IBook> = async(formData) => {
         const { _id, createdAt, updatedAt, available, ...restData } = formData;
         void createdAt; void updatedAt; void available;
-
-        const update = await axiosPublic.patch(`/books/edit-book/${_id}`, restData);
-        navigate("/books");
-        console.log('update',update);
-
+        
+        try {
+            await axiosPublic.patch(`/books/edit-book/${_id}`, restData);
+            navigate("/books");
+        } catch (err) {
+            console.log(err);
+        }
     }
-
 
     
     return (

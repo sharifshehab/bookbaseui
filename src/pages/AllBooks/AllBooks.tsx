@@ -11,7 +11,7 @@ import SingleBook from "./SingleBook/SingleBook";
 
 
 const AllBooks = () => {
-    const { data } = useGetAllBooksQuery(undefined, {
+    const { data, refetch } = useGetAllBooksQuery(undefined, {
         refetchOnFocus: true,               
         refetchOnMountOrArgChange: true,     
         refetchOnReconnect: true, 
@@ -34,7 +34,7 @@ const AllBooks = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {allBooks?.map(book => <SingleBook key={book._id} book={book}></SingleBook>)}
+                        {allBooks?.map(book => <SingleBook key={book._id} book={book} refetch={refetch}></SingleBook>)}
                     </TableBody>
                 </Table>
             </Container>

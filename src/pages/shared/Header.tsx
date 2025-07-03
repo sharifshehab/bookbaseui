@@ -15,10 +15,10 @@ const Header = () => {
                         </>;
     
     return (
-        <header className="bg-[#eedfcc]">
+        <header className="bg-[#DED3CA]">
             <Container>
             <nav
-                className="flex items-center justify-between w-full relative  py-2">
+                className="flex items-center justify-between w-full relative py-3">
 
                 {/* logo */}
                 <h2 className="text-2xl text-[#e92939] font-medium"><span className="text-gray-500 underline decoration-[#e92939]">Book</span>Base</h2>

@@ -8,6 +8,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import SingleBook from "./SingleBook/SingleBook";
+import Banner from "./Banner/Banner";
 
 
 const AllBooks = () => {
@@ -20,6 +21,7 @@ const AllBooks = () => {
 
     return (
         <section>
+            <Banner></Banner>
             <Container>
                 <Table className="border-b-2 border-amber-400 py-2">
                     <TableHeader>

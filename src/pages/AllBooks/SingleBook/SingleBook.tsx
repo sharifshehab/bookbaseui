@@ -6,11 +6,14 @@ import {
 import useAxios from "@/hooks/useAxios";
 import type { IBook } from "types";
 import Swal from 'sweetalert2';
+import { NavLink } from "react-router";
     
 const SingleBook = ({ book }: {book: IBook}) => {
     const { _id, title, author, genre, isbn, copies, available } = book || {}
     const axiosPublic = useAxios();
-    
+
+  
+    // Delete book with confirmation dialog 
     const handleBookDelete = async() => {
         Swal.fire({
             title: "Are you sure you want to delete this book?",
@@ -44,10 +47,12 @@ const SingleBook = ({ book }: {book: IBook}) => {
             <TableCell className="font-medium">{genre}</TableCell>
             <TableCell className="font-medium">{isbn}</TableCell>
             <TableCell className="font-medium">{copies}</TableCell>
-            <TableCell className="font-medium">{available ? "Yes": "No"}</TableCell>
+            <TableCell className="font-medium">{available ? "Available": "Unavailable"}</TableCell>
             <TableCell className="font-medium text-right">
                 <div className="space-x-3">
-                    <Button>Edit Book</Button>
+                    <Button>
+                        <NavLink to={`/edit-book/${_id}`}>Edit Book</NavLink>
+                    </Button>
                     <Button onClick={() => handleBookDelete()}>Delete Book</Button>
                 </div>
             </TableCell>

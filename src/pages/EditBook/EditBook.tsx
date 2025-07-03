@@ -4,29 +4,41 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import useAxios from "@/hooks/useAxios";
+import { useGetBookByIdQuery, useUpdateBookMutation } from "@/redux/features/book/bookApi";
 import { SelectTrigger } from "@radix-ui/react-select";
+import { useEffect } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { useLoaderData, useNavigate } from "react-router";
+import {  useNavigate, useParams } from "react-router";
 import type { IBook } from "types";
 
 const EditBook = () => {
-    const { data } = useLoaderData() as {data: IBook};
-    const axiosPublic = useAxios();
     const navigate = useNavigate();
 
-    const form = useForm<IBook>({
-        defaultValues: data
-    });
+    // Getting the old data
+    const { bookID } = useParams<{bookID: string}>();
+    const { data: book }= useGetBookByIdQuery(bookID!);
 
-    
+    const form = useForm<IBook>();
+
+    // Placing default data
+    useEffect(() => {
+        if (book?.data) {
+            form.reset(book?.data)
+        }
+    }, [book, form]);
+
+
+    // Updating new data
+    const [updateBook] = useUpdateBookMutation();
+
     const onSubmit: SubmitHandler<IBook> = async(formData) => {
-        const { _id, createdAt, updatedAt, available, ...restData } = formData;
-        void createdAt; void updatedAt; void available;
+        const { _id, createdAt, updatedAt, available, ...updateData } = formData;
+        void _id; void createdAt; void updatedAt; void available;
         
         try {
-            await axiosPublic.patch(`/books/edit-book/${_id}`, restData);
+            await updateBook({bookID: bookID!, updateData}).unwrap();
             navigate("/books");
+            form.reset();
         } catch (err) {
             console.log(err);
         }

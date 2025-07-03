@@ -7,8 +7,8 @@ export interface IBook {
     description?: string;
     copies: number;
     available: boolean;
-    createdAt?: Date;
-    updatedAt?: Date;
+    createdAt?: string;
+    updatedAt?: string;
 }
 
 export interface IBorrow {
@@ -16,3 +16,4 @@ export interface IBorrow {
     quantity: number;
     dueDate: Date,
 }
+

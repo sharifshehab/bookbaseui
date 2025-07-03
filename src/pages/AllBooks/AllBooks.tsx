@@ -6,7 +6,7 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-  } from "@/components/ui/table"
+} from "@/components/ui/table"
 import SingleBook from "./SingleBook/SingleBook";
 
 
@@ -21,7 +21,7 @@ const AllBooks = () => {
     return (
         <section>
             <Container>
-                <Table className="border-separate border-y-2 border-amber-400 py-2">
+                <Table className="border-b-2 border-amber-400 py-2">
                     <TableHeader>
                         <TableRow>
                             <TableHead>Title</TableHead>
@@ -34,7 +34,7 @@ const AllBooks = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {allBooks?.map(book => <SingleBook key={book._id} book={book} refetch={refetch}></SingleBook>)}
+                        {allBooks?.map(book => <SingleBook  key={book._id} book={book} refetch={refetch}></SingleBook>)}
                     </TableBody>
                 </Table>
             </Container>

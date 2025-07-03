@@ -118,3 +118,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+a.active{
+  color: #e92939;
+  border-bottom: 2px solid #e92939;
+  padding-bottom: 2px;
+}

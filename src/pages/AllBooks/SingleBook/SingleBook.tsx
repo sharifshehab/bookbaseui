@@ -3,7 +3,6 @@ import {
     TableCell,
     TableRow,
 } from "@/components/ui/table"
-import useAxios from "@/hooks/useAxios";
 import type { IBook, IBorrow } from "types";
 import Swal from 'sweetalert2';
 import { NavLink } from "react-router";
@@ -23,7 +22,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { useState } from "react";
-import { useCreateBookBorrowMutation } from "@/redux/features/book/bookApi";
+import { useCreateBookBorrowMutation, useDeleteBookMutation } from "@/redux/features/book/bookApi";
 
 interface IBookProp{
   book: IBook;
@@ -32,8 +31,7 @@ interface IBookProp{
     
 const SingleBook = ({ book, refetch }: IBookProp) => {
   const { _id, title, author, genre, isbn, copies, available } = book || {} 
-  
-  const axiosPublic = useAxios();
+
 
   // Borrow book with dialog form
   const [createBookBorrow] = useCreateBookBorrowMutation(); 
@@ -62,8 +60,10 @@ const SingleBook = ({ book, refetch }: IBookProp) => {
       }
   
   
-    // Delete book with confirmation dialog 
-    const handleBookDelete = async() => {
+  // Delete book with confirmation dialog 
+    const [deleteBook] = useDeleteBookMutation();
+
+    const handleBookDelete = () => {
         Swal.fire({
             title: "Are you sure you want to delete this book?",
             text: "You won't be able to revert this!",
@@ -74,24 +74,23 @@ const SingleBook = ({ book, refetch }: IBookProp) => {
             confirmButtonText: "Yes, delete it!"
           }).then((result) => {
             if (result.isConfirmed) {
-
-                        axiosPublic.delete(`/books/delete-book/${_id}`)
-                        .then(res => {
-                          refetch();
-                          if (res) {
-                            Swal.fire({
-                              title: "Deleted!",
-                              text: `Book name "${title}" is deleted!`,
-                              icon: "success"
-                            });
-                          }
-                        })
+                        deleteBook(_id).unwrap()
+                          .then(res => {
+                              refetch();
+                              if (res) {
+                                Swal.fire({
+                                  title: "Deleted!",
+                                  text: `Book name "${title}" is deleted!`,
+                                  icon: "success"
+                                });
+                              }
+                          })
             }
           });
     }
 
     return (
-        <TableRow>
+        <TableRow className="border-y-2 border-amber-400 py-2">
             <TableCell className="font-medium">{title}</TableCell>
             <TableCell className="font-medium">{author}</TableCell>
             <TableCell className="font-medium">{genre}</TableCell>

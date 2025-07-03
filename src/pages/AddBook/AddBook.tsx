@@ -4,26 +4,25 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import useAxios from "@/hooks/useAxios";
+import { useCreateBookMutation } from "@/redux/features/book/bookApi";
 import { SelectTrigger } from "@radix-ui/react-select";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
 import type { IBook } from "types";
 
 const AddBook = () => {
-    const axiosPublic = useAxios();
+    const [createBook] = useCreateBookMutation();
     const navigate = useNavigate();
-
     const form = useForm<IBook>();
 
     const onSubmit: SubmitHandler<IBook> = async(formData) => {
-        const data = {
+        const bookData = {
             ...formData,
             available: true
         }
 
         try {
-            await axiosPublic.post('/books/create-book', data);
+            await createBook(bookData).unwrap();
             navigate("/books");
         } catch (err) {
             console.log(err);

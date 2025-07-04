@@ -20,19 +20,20 @@ const AllBooks = () => {
     const allBooks = data?.data;
 
     return (
-        <section>
+        <section className="pb-20 min-h-screen">
             <Banner></Banner>
             <Container>
-                <Table className="border-b-2 border-amber-400 py-2">
+                <h2 className="text-3xl text-center pt-20 pb-8 underline underline-offset-8 decoration-[#e92939]">Discover Your <span className="text-[#e92939]">Next Book</span></h2>
+                <Table className="border-b-2 border-[#ded3ca]">
                     <TableHeader>
                         <TableRow>
-                            <TableHead>Title</TableHead>
-                            <TableHead>Author</TableHead>
-                            <TableHead>Genre</TableHead>
-                            <TableHead>ISBN</TableHead>
-                            <TableHead>Copies</TableHead>
-                            <TableHead>Availability</TableHead>
-                            <TableHead className="text-center">Actions</TableHead>
+                            <TableHead className="text-[#e92939]">Title</TableHead>
+                            <TableHead className="text-[#e92939]">Author</TableHead>
+                            <TableHead className="text-[#e92939]">Genre</TableHead>
+                            <TableHead className="text-[#e92939]">ISBN</TableHead>
+                            <TableHead className="text-[#e92939]">Copies</TableHead>
+                            <TableHead className="text-[#e92939]">Availability</TableHead>
+                            <TableHead className="text-center text-[#e92939]">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>

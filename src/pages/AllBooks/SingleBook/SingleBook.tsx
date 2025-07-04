@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/popover"
 import { useState } from "react";
 import { useCreateBookBorrowMutation, useDeleteBookMutation } from "@/redux/features/book/bookApi";
+import { endOfYear, startOfToday } from "date-fns";
 
 interface IBookProp{
   book: IBook;
@@ -69,8 +70,8 @@ const SingleBook = ({ book, refetch }: IBookProp) => {
             text: "You won't be able to revert this!",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
+            confirmButtonColor: "#e92939",
+            cancelButtonColor: "#6a7282",
             confirmButtonText: "Yes, delete it!"
           }).then((result) => {
             if (result.isConfirmed) {
@@ -81,7 +82,8 @@ const SingleBook = ({ book, refetch }: IBookProp) => {
                                 Swal.fire({
                                   title: "Deleted!",
                                   text: `Book name "${title}" is deleted!`,
-                                  icon: "success"
+                                  icon: "success",
+                                  confirmButtonColor: "#ded3ca",
                                 });
                               }
                           })
@@ -90,8 +92,8 @@ const SingleBook = ({ book, refetch }: IBookProp) => {
     }
 
     return (
-        <TableRow className="border-y-2 border-amber-400 py-2">
-            <TableCell className="font-medium">{title}</TableCell>
+        <TableRow className="border-y-2 border-[#ded3ca] py-2">
+           <NavLink to={`/books/${_id}`}><TableCell className="font-medium">{title}</TableCell></NavLink>
             <TableCell className="font-medium">{author}</TableCell>
             <TableCell className="font-medium">{genre}</TableCell>
             <TableCell className="font-medium">{isbn}</TableCell>
@@ -99,20 +101,20 @@ const SingleBook = ({ book, refetch }: IBookProp) => {
             <TableCell className="font-medium">{available ? "Available": "Unavailable"}</TableCell>
             <TableCell className="font-medium text-right">
                 <div className="space-x-3">
-                    <Button>
+                    <Button className="bg-[#ded3ca] text-black hover:text-white">
                         <NavLink to={`/edit-book/${_id}`}>Edit Book</NavLink>
                     </Button>
-                    <Button onClick={() => handleBookDelete()}>Delete Book</Button>
+                    <Button onClick={() => handleBookDelete()} className="text-[#e92939] bg-[#ded3ca] cursor-pointer">Delete Book</Button>
 
                   <Dialog open={openDialog} onOpenChange={setOpenDialog}>
                     
                     <Form {...form}>
 
                       <DialogTrigger asChild>
-                        <Button variant="outline">Borrow Book</Button>
+                        <Button variant="outline" className="cursor-pointer hover:bg-gray-500 hover:text-white">Borrow Book</Button>
                       </DialogTrigger>
 
-                        <DialogContent className="sm:max-w-[425px]">
+                        <DialogContent className="sm:max-w-[425px] bg-[#ded3ca]">
                           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
                               <FormField
                                   control={form.control}
@@ -139,7 +141,11 @@ const SingleBook = ({ book, refetch }: IBookProp) => {
                                                 onSelect={(date) => {
                                                   field.onChange(date)
                                                   setCalenderOpen(false)
-                                                }}
+                                              }}
+                                              disabled={[
+                                              {before: startOfToday()},
+                                              {after: endOfYear(new Date())},
+                                            ]}
                                                 {...field}
                                               />
                                             </PopoverContent>
@@ -161,13 +167,14 @@ const SingleBook = ({ book, refetch }: IBookProp) => {
                                                   placeholder="Quantity"
                                                   {...field}
                                                   onChange={(e) => field.onChange(e.target.value === "" ? "" : +e.target.value)}
+                                                  className="bg-white"
                                               />
                                       </FormControl>
                                       {/* <FormMessage /> */}
                                       </FormItem>
                                   )}
                               /> {/* quantity [Number] */}
-                              <Button type="submit">Borrow Book</Button>
+                              <Button type="submit" className="bg-gray-500 text-white">Borrow Book</Button>
                   </form>
                   
                             {availableError && <p className="text-red-500">{availableError}</p>}

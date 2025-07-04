@@ -46,10 +46,11 @@ const EditBook = () => {
 
     
     return (
-        <section>
+        <section className="min-h-screen flex items-center justify-center py-10">
             <Container>
+            <h2 className="text-3xl text-center pt-20 pb-8 underline underline-offset-8 decoration-[#e92939]">Update <span className="text-[#e92939]">Book</span></h2>
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full bg-gray-500 p-12 rounded-sm">
                         <div className="flex items-center justify-center gap-4">
                             <FormField
                             control={form.control}
@@ -58,7 +59,7 @@ const EditBook = () => {
                                 <FormItem className="flex-1">
                                 <FormLabel>Title</FormLabel>
                                 <FormControl>
-                                    <Input type="text" placeholder="Book title" {...field} className="w-full"/>
+                                    <Input type="text" placeholder="Book title" {...field} className="w-full bg-[#ded3ca] rounded-sm"/>
                                 </FormControl>
                                 {/* <FormMessage /> */}
                                 </FormItem>
@@ -71,7 +72,7 @@ const EditBook = () => {
                                 <FormItem className="flex-1">
                                 <FormLabel>Author</FormLabel>
                                 <FormControl>
-                                    <Input type="text" placeholder="Book author" {...field} className="w-full"/>
+                                    <Input type="text" placeholder="Book author" {...field} className="w-full bg-[#ded3ca] rounded-sm"/>
                                 </FormControl>
                                 {/* <FormMessage /> */}
                                 </FormItem>
@@ -92,7 +93,7 @@ const EditBook = () => {
                                             value={field.value}
                                             defaultValue={field.value}
                                         >
-                                            <SelectTrigger className="border-1 py-1 rounded-sm text-left ps-3 text-[14px]">
+                                            <SelectTrigger className="border-1 py-1 bg-[#ded3ca] rounded-sm text-left ps-3 text-[14px]">
                                                 <SelectValue placeholder="Select book genre" {...field}/>
                                             </SelectTrigger>
                                             <SelectContent>
@@ -123,6 +124,7 @@ const EditBook = () => {
                                             type="text"
                                             placeholder="Book isbn number"
                                             {...field}
+                                            className="bg-[#ded3ca] rounded-sm"
                                         />
                                 </FormControl>
                                 {/* <FormMessage /> */}
@@ -145,6 +147,7 @@ const EditBook = () => {
                                             // {...field}
                                             value={field.value}
                                             onChange={(e) => field.onChange(e.target.value === "" ? "" : +e.target.value)}
+                                            className="bg-[#ded3ca] rounded-sm"
                                         />
                                 </FormControl>
                                 {/* <FormMessage /> */}
@@ -158,7 +161,7 @@ const EditBook = () => {
                                 <FormItem className="flex-1">
                                 <FormLabel>Description</FormLabel>
                                 <FormControl>
-                                        <Textarea placeholder="Book description" {...field}  className="h-40"/>
+                                        <Textarea placeholder="Book description" {...field}  className="h-40 bg-[#ded3ca] rounded-sm"/>
                                 </FormControl>
                                 {/* <FormMessage /> */}
                                 </FormItem>
@@ -166,7 +169,7 @@ const EditBook = () => {
                             />
                         </div>{/* third row */}
 
-                        <Button type="submit">Update Book</Button>
+                        <Button type="submit" className="bg-white text-black hover:bg-[#fff5e8]">Update Book</Button>
                     </form>
                 </Form>
             </Container>

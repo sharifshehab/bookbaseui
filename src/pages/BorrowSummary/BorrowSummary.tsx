@@ -20,14 +20,15 @@ const BorrowSummary = () => {
     console.log(totalSummary);
 
     return (
-        <section>
-        <Container>
-            <Table className="border-b-2 border-amber-950 py-2">
+        <section className="pb-20 min-h-screen">
+            <Container>
+            <h2 className="text-3xl text-center pt-20 pb-8 underline underline-offset-8 decoration-[#e92939]">Borrowed Books <span className="text-[#e92939]">Summary</span></h2>
+            <Table className="border-b-2 border-[#ded3ca]">
                 <TableHeader>
                     <TableRow>
-                        <TableHead>Book Title</TableHead>
-                        <TableHead>ISBN</TableHead>
-                        <TableHead>Total Quantity Borrowed</TableHead>
+                        <TableHead className="text-[#e92939]">Book Title</TableHead>
+                        <TableHead className="text-[#e92939]">ISBN</TableHead>
+                        <TableHead className="text-[#e92939]">Total Quantity Borrowed</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>

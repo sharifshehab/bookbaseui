@@ -2,6 +2,7 @@
 import Root from "@/layout/Root";
 import AddBook from "@/pages/AddBook/AddBook";
 import AllBooks from "@/pages/AllBooks/AllBooks";
+import BookDetails from "@/pages/BookDetails/BookDetails";
 import BorrowSummary from "@/pages/BorrowSummary/BorrowSummary";
 import EditBook from "@/pages/EditBook/EditBook";
 import { createBrowserRouter } from "react-router";
@@ -19,6 +20,10 @@ export const router = createBrowserRouter([
             {
                 path: "books",
                 element: <AllBooks/>
+            },
+            {
+                path: "books/:bookID",
+                element: <BookDetails></BookDetails>
             },
             {
                 path: "create-book",

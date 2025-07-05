@@ -1,15 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { IBook, IBorrow } from "types";
+import type { IBook, IBorrow, IResBook } from "types";
 
 interface ICommon{
     success: boolean;
     message: string;
 }
 interface IBookResponse extends ICommon{
-    data: IBook[]
+    data: IResBook[]
 }
 interface IBookByIdResponse extends ICommon{
-    data: IBook
+    data: IResBook
 }
 interface IDeleteResponse extends ICommon{
     data: null
@@ -26,10 +26,10 @@ interface IBorrowResponse extends ICommon{
 } 
 
 
-
 export const bookApi = createApi({
     reducerPath: 'bookApi',
-    baseQuery: fetchBaseQuery({ baseUrl: 'https://new-book-base.vercel.app' }),
+    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000' }),
+    // baseQuery: fetchBaseQuery({ baseUrl: 'https://new-book-base.vercel.app' }),
     tagTypes: ['book'],
     endpoints: (builder) => ({
         

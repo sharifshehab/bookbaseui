@@ -14,7 +14,7 @@ const SingleSummary = ({ summary }: {summary: any}) => {
     const { title, isbn } = book || {} 
     
     return (
-        <TableRow className="border-y-2 border-amber-950">
+        <TableRow className="border-y-2 border-[#ded3ca]">
             <TableCell className="font-medium">{title}</TableCell>
             <TableCell className="font-medium">{isbn}</TableCell>
             <TableCell className="font-medium">{totalQuantity}</TableCell>

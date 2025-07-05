@@ -47,7 +47,6 @@ export const bookApi = createApi({
         // Get all the books
         getAllBooks: builder.query<IBookResponse, void>({
             query: () => '/books/all-books',
-            providesTags: ['book']
         }),
 
         // Get book by id
@@ -64,7 +63,7 @@ export const bookApi = createApi({
                 url: `/books/edit-book/${bookID}`,
                 method: 'PATCH',
                 body: updateData,
-                }),
+            }),
         }),
 
         // Delete book
@@ -72,7 +71,7 @@ export const bookApi = createApi({
             query: (bookID) => ({
                 url: `/books/delete-book/${bookID}`,
                 method: 'DELETE',
-                }),
+            }),
             }),
 
 

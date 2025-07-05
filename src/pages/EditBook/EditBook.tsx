@@ -12,7 +12,7 @@ import { useNavigate, useParams } from "react-router";
 import { Slide, toast, ToastContainer } from "react-toastify";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const EditBook = () => {
     const [serverErr, setServerErr] = useState();
@@ -31,25 +31,8 @@ const EditBook = () => {
 
     // Getting the old data
     const { bookID } = useParams<{ bookID: string }>();
-    const { data: book } = useGetBookByIdQuery(bookID!);
-    const oldBook = book?.data;
-
-    const oldBookData = {
-        ...oldBook,
-        isbn: oldBook?.isbn + ''
-    }
-
-
-/*     
-    const form = useForm<IResBook>();
-
-    // Placing default data
-    useEffect(() => {
-        if (book?.data) {
-            form.reset(book?.data)
-        }
-    }, [book, form]); 
-*/
+    const { data: book, isFetching, isLoading } = useGetBookByIdQuery(bookID!);
+    const oldBookData = book?.data;
 
 
     // Updating new data on the server
@@ -64,26 +47,39 @@ const EditBook = () => {
         isbn: z.string().regex(/^\d{13}$/, "ISBN must be exactly 13 digits number"),
         description: z.string().optional(),
         copies: z.number().nonnegative(),
-        available: z.boolean().optional(),
-        createdAt: z.string().optional(),
-        updatedAt: z.string().optional(),
-        
+        available: z.boolean(),
     });
 
     const form = useForm<z.infer<typeof addBookFormSchema>>({
-        resolver: zodResolver(addBookFormSchema),
-        defaultValues: oldBookData  // Placing default data
+        resolver: zodResolver(addBookFormSchema)
     });
 
+
+    // Placing default data
+    useEffect(() => {
+        if (oldBookData) {
+            form.reset({
+                ...oldBookData,
+                isbn: oldBookData?.isbn + "",
+                genre: oldBookData?.genre
+            });
+        }
+    }, [oldBookData, form]);
+
+
+
     const onSubmit: SubmitHandler<z.infer<typeof addBookFormSchema>> = async (formData) => {
+        const { _id, ...rest } = formData;
+        void _id
         const updateData = {
-            ...formData,
+            ...rest,
             isbn: +formData.isbn,
             available: true
         }
         try {
             await updateBook({ bookID: bookID!, updateData }).unwrap();
             notify();
+            form.reset();
             setTimeout(() => {
                 navigate("/books");
             }, 2500);
@@ -93,6 +89,9 @@ const EditBook = () => {
         }
     }
 
+    if (isFetching || isLoading) {
+        return <div className="min-h-screen flex items-center justify-center"><p className="text-xl text-[#e92939]">Loading data...</p></div>
+    }
     return (
         <HeadProvider>
             <Title>BookBase - Update Books</Title>
@@ -141,14 +140,15 @@ const EditBook = () => {
                                                 <Select
                                                     onValueChange={field.onChange}
                                                     value={field.value}
-                                                    defaultValue={field.value}
                                                 >
+                                                    
                                                     <SelectTrigger className="border-1 py-1 bg-[#ded3ca] rounded-sm text-left ps-3 text-[14px]">
-                                                        <SelectValue placeholder="Select book genre" {...field} />
+                                                        <SelectValue placeholder="Select book genre" />
+
                                                     </SelectTrigger>
                                                     <SelectContent>
                                                         <SelectGroup>
-                                                            <SelectItem value="FICTION">FICTION</SelectItem>
+                                                            <SelectItem value="FICTION">FICTION</SelectItem> 
                                                             <SelectItem value="NON_FICTION">NON_FICTION</SelectItem>
                                                             <SelectItem value="SCIENCE">SCIENCE</SelectItem>
                                                             <SelectItem value="HISTORY">HISTORY</SelectItem>
@@ -194,7 +194,8 @@ const EditBook = () => {
                                                 <Input
                                                     type="number"
                                                     placeholder="Book copies"
-                                                    {...field}                                                    min={1}
+                                                    {...field}
+                                                    min={0}
                                                     onChange={(e) => field.onChange(e.target.value === "" ? "" : +e.target.value)}
                                                     className="bg-[#ded3ca] rounded-sm"
                                                 />

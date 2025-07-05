@@ -50,10 +50,9 @@ const AddBook = () => {
             isbn: +formData.isbn,
             available: true
         }
-
         try {
-            const res = await createBook(bookData).unwrap();
-            console.log(res);
+            await createBook(bookData).unwrap();
+            form.reset();
             notify();
             setTimeout(() => {
                 navigate("/books");

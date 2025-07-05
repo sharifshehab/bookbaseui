@@ -39,7 +39,7 @@ const SingleBook = ({ book, refetch }: IBookProp) => {
 
   // Borrow book with dialog form
   const [createBookBorrow] = useCreateBookBorrowMutation();
-  
+
   /* notify toast */
   const notify = () => toast.success('Book Borrowed Successfully!', {
     position: "top-right",
@@ -55,7 +55,7 @@ const SingleBook = ({ book, refetch }: IBookProp) => {
 
   const [calenderOpen, setCalenderOpen] = useState(false);   /* Date calender */
   const [openDialog, setOpenDialog] = useState(false);      /* Dialog box  */
-  const [availableError, setAvailableError] = useState();  
+  const [availableError, setAvailableError] = useState();
 
   const form = useForm<IBorrow>();
 
@@ -122,6 +122,7 @@ const SingleBook = ({ book, refetch }: IBookProp) => {
         <TableCell className="font-medium">{available ? "Available" : "Unavailable"}</TableCell>
         <TableCell className="font-medium text-right">
           <div className="space-x-3">
+            <NavLink to={`/books/${_id}`}><Button className="text-black bg-[#ded3ca] hover:text-white cursor-pointer">View Book</Button></NavLink>
             <Button className="bg-[#ded3ca] text-black hover:text-white">
               <NavLink to={`/edit-book/${_id}`}>Edit Book</NavLink>
             </Button>
@@ -195,7 +196,7 @@ const SingleBook = ({ book, refetch }: IBookProp) => {
                         </FormItem>
                       )}
                     /> {/* quantity [Number] */}
-                    <Button type="submit" className="bg-gray-500 text-white">Borrow Book</Button>
+                    <Button type="submit" className="bg-gray-500 text-white cursor-pointer">Borrow Book</Button>
                   </form>
 
                   {availableError && <p className="text-red-500">{availableError}</p>}

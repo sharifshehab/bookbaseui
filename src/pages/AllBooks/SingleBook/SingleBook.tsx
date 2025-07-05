@@ -3,7 +3,7 @@ import {
   TableCell,
   TableRow,
 } from "@/components/ui/table"
-import type { IBook, IBorrow } from "types";
+import type { IBorrow, IResBook } from "types";
 import Swal from 'sweetalert2';
 import { NavLink, useNavigate } from "react-router";
 import {
@@ -27,9 +27,10 @@ import { endOfYear, startOfToday } from "date-fns";
 import { Slide, ToastContainer, toast } from 'react-toastify';
 
 interface IBookProp {
-  book: IBook;
+  book: IResBook;
   refetch: () => void
 }
+
 
 const SingleBook = ({ book, refetch }: IBookProp) => {
   const { _id, title, author, genre, isbn, copies, available } = book || {};

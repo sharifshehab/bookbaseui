@@ -18,7 +18,6 @@ const BorrowSummary = () => {
         refetchOnReconnect: true,
     });
     const totalSummary = BorrowSummary?.data;
-    console.log(totalSummary);
 
     return (
         <HeadProvider>

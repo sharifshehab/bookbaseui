@@ -8,6 +8,7 @@ interface ICommon{
 interface IBookResponse extends ICommon{
     data: IResBook[]
 }
+
 interface IBookByIdResponse extends ICommon{
     data: IResBook
 }
@@ -28,8 +29,8 @@ interface IBorrowResponse extends ICommon{
 
 export const bookApi = createApi({
     reducerPath: 'bookApi',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000' }),
-    // baseQuery: fetchBaseQuery({ baseUrl: 'https://new-book-base.vercel.app' }),
+    // baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000' }),
+    baseQuery: fetchBaseQuery({ baseUrl: 'https://new-book-base.vercel.app' }),
     tagTypes: ['book'],
     endpoints: (builder) => ({
         

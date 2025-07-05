@@ -55,7 +55,7 @@ const SingleBook = ({ book, refetch }: IBookProp) => {
 
   const [calenderOpen, setCalenderOpen] = useState(false);   /* Date calender */
   const [openDialog, setOpenDialog] = useState(false);      /* Dialog box  */
-  const [availableError, setAvailableError] = useState();  /* Dialog box  */
+  const [availableError, setAvailableError] = useState();  
 
   const form = useForm<IBorrow>();
 

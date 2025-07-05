@@ -30,7 +30,7 @@ interface IBorrowResponse extends ICommon{
 export const bookApi = createApi({
     reducerPath: 'bookApi',
     // baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000' }),
-    baseQuery: fetchBaseQuery({ baseUrl: 'https://new-book-base.vercel.app' }),
+    baseQuery: fetchBaseQuery({ baseUrl: 'https://new-book-base.vercel.app' }), 
     tagTypes: ['book'],
     endpoints: (builder) => ({
         
@@ -40,7 +40,8 @@ export const bookApi = createApi({
                 url: '/books/create-book',
                 method: 'POST',
                 body: bookData,
-                }),
+            }),
+            invalidatesTags: ['book']
         }),
         
         // Get all the books
